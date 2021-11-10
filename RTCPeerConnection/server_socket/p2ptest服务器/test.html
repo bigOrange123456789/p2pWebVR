@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>p2p</title>
+</head>
+<body>
+<script src="http://youku3d.com/smart3d/lib/socket.io.js"></script>
+<!--script src="/socket.io/socket.io.js"></script-->
+<!--script src="http://youku3d.com/smart3d/lib/adapter.js"></script-->
+<script type="module">
+    window.otherIDS=[]
+    function getParam() {
+        var param={}
+        param.ip=window.location.href.split("http://")[1].split(":")[0]
+        param.socketURL="http://"+param.ip+":8888/"
+        param.dectionURL="http://"+param.ip+":9999/"
+        //param.needDetection=true
+
+        var urlData=window.location.href.split("?").length>1?window.location.href.split("?")[1]:''
+        urlData=urlData.split('&')
+        for(var i=0;i<urlData.length;i++){
+            var s=urlData[i]
+            var a=s.split('=')
+            if(a.length===2){
+                if(a[1]==='true')a[1]=true
+                else if(a[1]==='false')a[1]=false
+                if(a[0]==='testTime')try{
+                    a[1]=parseFloat(a[1])
+                }catch(e){console.log(e)}
+                param[a[0]]=a[1]
+            }
+        }
+        return param
+    }
+    window.param=getParam()
+    param.socketURL="http://42.192.61.61:8888/"
+
+    //import {Peer} from "http://localhost:8080/Peer.js";
+    import {Peer} from "./Peer.js";
+    var peer=new Peer({
+        socketURL:window.param.socketURL//'localhost:8888'
+    })
+    window.p2p={'myPeer':peer}
+    peer.receive=(data,id)=>{
+        //console.log(id,data.data)
+        //console.log('receive: '+id)
+        //console.log('receive')
+    }
+    function getData(n) {
+        console.log(n)
+        var arr=[]
+        for(var i=0;i<n;i++)
+            arr.push(n)
+        return arr;
+    }
+    var data=getData(43690)
+    data=getData(42345)
+    setInterval(()=>{
+        for(var i=0;i<10;i++)
+        peer.send(data)
+    },1)
+    setTimeout(()=>{
+        //peer.send(getData(43690)) 通道产生中断
+    },1000)
+
+
+    import {Detection} from "./Detection.js";
+    var detection=new Detection('p2pTest')
+
+    document.getElementsByTagName('title')[0].innerText=1
+</script>
+<script>
+
+</script>
+</body>
+</html>

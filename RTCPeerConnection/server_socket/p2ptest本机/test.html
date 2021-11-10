@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>p2p</title>
+</head>
+<body>
+<script src="http://youku3d.com/smart3d/lib/socket.io.js"></script>
+<!--script src="/socket.io/socket.io.js"></script-->
+<!--script src="http://youku3d.com/smart3d/lib/adapter.js"></script-->
+<script type="module">
+    //import {Peer} from "http://localhost:8080/Peer.js";
+    import {Peer} from "./Peer.js";
+    var peer=window.peer=new Peer({
+        socketURL:'localhost:8888'
+    })
+    peer.receive=(data,id)=>{
+        //console.log(id,data.data)
+        //console.log('receive: '+id)
+        console.log('receive')
+    }
+    function getData(n) {
+        console.log(n)
+        var arr=[]
+        for(var i=0;i<n;i++)
+            arr.push(n)
+        return arr;
+    }
+    var data=getData(43690)
+    data=getData(10000)
+    setTimeout(()=>{
+        setInterval(()=>{
+            for(var i=0;i<10;i++)
+            //peer.send(data)
+                ;//peer.send(data)
+        },1)
+        //peer.send(getData(43690)) 通道产生中断
+    },1000)
+    window.send=peer.send
+
+
+</script>
+<script>
+
+</script>
+</body>
+</html>
