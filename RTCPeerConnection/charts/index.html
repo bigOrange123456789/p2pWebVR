@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--    <meta name="viewport"-->
+    <!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+    <title>charts</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="label">
+    <p class="label-title">高空施工作业风险</p>
+</div>
+<div id="charts">
+    <div class="charts1">
+        <div class="top-line"></div>
+        <div class="charts1-box">
+            <div class="title">
+                <div class="danger-icon"></div>
+                <p>风险源清单（4）</p>
+                <div class="list-icon"></div>
+            </div>
+            <ul class="menu">
+                <li class="list">
+                    <div class="left-line"></div>
+                    <p>1. 施工作业风险（2）</p>
+                </li>
+                <div class="list-drop">
+                    <p>1.1 高空坠物风险</p>
+                    <p>1.2 作业空间过小</p>
+                </div>
+                <li class="list">
+                    <div class="left-line"></div>
+                    <p>2. 环境风险</p>
+                </li>
+                <div class="list-drop">
+                    <p>2.1 环境湿度过高</p>
+                </div>
+                <li class="list">
+                    <div class="left-line"></div>
+                    <p>3. 设备风险</p>
+                </li>
+                <div class="list-drop">
+                    <p>3.1 设备布局密度太高</p>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="charts2">
+        <div class="top-line"></div>
+        <div class="charts2-box">
+            <div class="title">危险源分析</div>
+            <div class="charts-box">
+                <div id="charts-left"></div>
+                <div id="charts-right"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //charts1 列表点击效果
+    let menu = document.querySelector('.menu')
+    let list = menu.querySelectorAll('.list');
+    let listDrop = menu.querySelectorAll('.list-drop');
+
+    for (let i = 0; i < list.length; i++) {
+        list[i].addEventListener("click", function () {
+            let selectedNum = i;
+            if (listDrop[selectedNum].style.display === 'none') {
+                listDrop[selectedNum].style.display = 'block';
+            } else {
+                listDrop[selectedNum].style.display = 'none';
+            }
+        })
+    }
+
+    //label
+    let label = document.querySelector('#label');
+    let lTitle = document.querySelector('.label-title');
+
+    //初始窗口，设置label高度和文字的字号
+    window.onload = function () {
+        let width = label.clientWidth;
+        label.style.height = width * (140 / 804) + 'px';
+        lTitle.style.fontSize = width * (140 / 804 / 2) + 'px';
+        lTitle.style.lineHeight = label.style.height;
+    }
+
+    //改变窗口大小，调节label高度和文字的字号
+    window.onresize = function () {
+        let width = label.clientWidth;
+        label.style.height = width * (140 / 804) + 'px';
+        lTitle.style.fontSize = width * (140 / 804 / 2) + 'px';
+        lTitle.style.lineHeight = label.style.height;
+    }
+
+</script>
+
+<script src="echarts.js"></script>
+<script>
+    //左侧饼状图
+    // 基于准备好的dom，初始化echarts实例
+    var myChartLeft = echarts.init(document.getElementById('charts-left'));
+
+    option = {
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            textStyle: {
+                color: '#FFFFFF'
+            },
+        },
+        series: [
+            {
+                type: 'pie',
+                radius: '90%',//饼图的半径大小
+                center: ['65%', '50%'],//饼图的位置
+                label: {            //饼图图形上的文本标签
+                    normal: {
+                        show: true,
+                        position: 'inner', //标签的位置
+                        textStyle: {
+                            fontWeight: 400,
+                            fontSize: 13    //文字的字体大小
+                        },
+                        formatter: '{d}%'
+                    }
+                },
+                data: [
+                    {value: 43, name: '危险源1', itemStyle: {normal: {color: '#82E755'}}},
+                    {value: 19, name: '危险源2', itemStyle: {normal: {color: '#FFF000'}}},
+                    {value: 10, name: '危险源3', itemStyle: {normal: {color: '#FF9E35'}}},
+                    {value: 28, name: '危险源4', itemStyle: {normal: {color: '#EE5835'}}}
+                ]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChartLeft.setOption(option);
+
+    //右侧柱状图
+    var myChartRight = echarts.init(document.getElementById('charts-right'));
+    option = {
+        grid: {
+            show: false,
+            top: 17,
+            bottom: 30
+        },
+        xAxis: {
+            type: 'category',
+            data: ['数据', '数据', '数据', '数据', '数据'],
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: '#FFFFFF'
+                }
+            }
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: '#FFFFFF'
+                }
+            }
+        },
+        series: [
+            {
+                data: [3.5, 0.9, 2.8, 2.3, 5.2],
+                type: 'bar',
+                itemStyle: {
+                    color: '#539FD4'
+                }
+            }
+        ]
+    };
+    myChartRight.setOption(option);
+</script>
+</body>
+</html>
