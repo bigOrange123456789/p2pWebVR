@@ -7,10 +7,11 @@ require('http').createServer(function (request, response) {
             //console.log(data)
             var result=JSON.parse(data)
             console.log(result.userID)
+            var name0="detection/" +result.userID+"#"+Math.random()
+            if(result.p2pPrint&&result.p2pPrint.version)
+                name0=name0+result.p2pPrint.version
             saveJson(
-                "detection/"
-                +result.userID+"#"+Math.random()
-                +".json",
+                name0 +".json",
                 result)
         }catch (e) {
             console.log(1,e)

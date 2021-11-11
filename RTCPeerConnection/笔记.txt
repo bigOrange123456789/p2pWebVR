@@ -1,4 +1,4 @@
-http://100.66.196.213:8082/?scene=JinYue&useP2P=true
+http://100.66.196.213:3000/?scene=JinYue&useP2P=true
 http://100.66.196.213:8082/?scene=JinYue&useP2P=true&onlyP2P=true&needDetection=true
 ----------------------代码说明----------------------
 SLMLoader.js :

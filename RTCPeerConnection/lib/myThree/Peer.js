@@ -3,7 +3,7 @@ class Peer{//对 _Peer 对象进行封装
         var scope=this
         var _myPeer=new _Peer(opt)
         var waitingUser=[]
-
+        this.print=_myPeer.print
         this.peers=_myPeer.peers
         this.send=(data,target)=>{
             if(data &&
@@ -71,6 +71,11 @@ class Peer{//对 _Peer 对象进行封装
 }
 class _Peer{
     constructor(opt) {
+        this.print={
+            version:'mix',
+            onopen:[],
+            onclose:[]//id,state,buffer,time
+        }//用于detection对象
         this.myId=''
         this.otherId=''//这个为空表示处于空闲状态，否则处于忙碌状态
         this.socket =this.initSocket(opt.socketURL)
@@ -214,21 +219,29 @@ class _Peer{
         var scope=this
         channel.peerId=this.otherId
         channel.onopen = ()=>{
+            console.log(scope,scope.print)
+            scope.print['onopen'].push([
+                channel.peerId,
+                Math.round(performance.now()),
+            ])
             scope.peers[channel.peerId]=channel
             scope.openCallback(channel.peerId)
             scope.finish()
         }
         channel.onmessage=message=>console.log("message",message)
         channel.onclose=()=>{//当接收到close事件时候的事件处理器。当底层链路被关闭的时候会触发该事件。
-            console.log('通道产生了中断',
+            //发送方易中断，接收方不易中断
+            scope.print['onclose'].push([
+                channel.peerId,
+                channel.readyState,
                 channel.bufferedAmount,
-                channel.bufferedAmount>43690,
-                channel.bufferedAmount-43690)
+                Math.round(performance.now()),
+            ])
             //这里scope.peers[channel.peerId].readyState为'closed' 已关闭
             //alert(scope.peers[channel.peerId].readyState)
             //alert(channel.bufferedAmount)
-            delete scope.peers[channel.peerId]
-            scope.peers[channel.peerId]=true
+            //delete scope.peers[channel.peerId]
+            //scope.peers[channel.peerId]=true
 
             //有点中断可以底层自动重连，有的中断只能通过以下代码重连
             setTimeout(()=>{//对于关闭的通道应该重新连接

@@ -1,0 +1,38 @@
+{
+	"param": {
+		"projectName": "JinYue",
+		"useP2P": true,
+		"needDetection": true,
+		"onlyP2P": true,
+		"testTime": 60,
+		"ip": "localhost",
+		"socketURL": "http://42.192.61.61:8888/",
+		"dectionURL": "http://localhost:9999/"
+	},
+	"userID": 0,
+	"timeSum0": 0,
+	"count0": 0,
+	"url": "http://localhost:3000/?scene=JinYue&useP2P=true&needDetection=true&onlyP2P=true",
+	"date": [
+		10,
+		11,
+		10,
+		2,
+		452
+	],
+	"frameCount": 2757,
+	"testTime": 60,
+	"p2pConn": 1,
+	"p2pPrint": {
+		"version": "mix",
+		"onopen": [
+			[
+				"eyBNzhhfs3HYRTDUAAB_",
+				3633
+			]
+		],
+		"onclose": []
+	},
+	"timeSum1": 300814.3999998756,
+	"count1": 83
+}

@@ -54,6 +54,7 @@ class Detection {//需要服务器
         )
         this.close=true
         var data={
+            param:window.param,
             userID:this.userID,
             timeSum0:this.timeSum0,//直接通过服务器获取的资源
             count0:this.count0,
@@ -64,6 +65,7 @@ class Detection {//需要服务器
         }
         if(window.param.useP2P){
             data.p2pConn = Object.keys(window.p2p.myPeer.peers).length
+            data.p2pPrint=window.p2p.myPeer.print
             //data.socketID = window.p2p.myPeer._myPeer.myId
             //alert('Object.keys(window.p2p.myPeer.peers).length')
             //alert(Object.keys(window.p2p.myPeer.peers).length)
