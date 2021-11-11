@@ -132,9 +132,11 @@ class _Peer{
         return this.otherId===''||this.peers[this.otherId]
     }
     connect(id){
-        if(!this.idle()){
+        /*if(!this.idle()){
             console.log('The previous connection has not been completed')
-        }else if(this.peers[id]
+        }else
+        */
+        if(this.peers[id]
             &&(scope.peers[id].readyState==='connecting'||scope.peers[id].readyState==='open')
         ){
             console.log('This connection has been established:'+id)

@@ -9,13 +9,13 @@ import {
   sRGBEncoding,
   Object3D,
   AmbientLight
-} from '../lib/three/build/three';
+} from '../lib/three/build/three.js';
 
 import Stats from '../lib/three/examples/jsm/libs/stats.module.js';
 //import {OrbitControls} from '../lib/three/examples/jsm/controls/OrbitControls.js';
 import {PlayerControl} from '../lib/myThree/PlayerControl.js';
-import { GUI } from 'dat.gui';
-import { SLMLoader } from '../lib/SLMLoader';
+
+import { SLMLoader } from '../lib/SLMLoader.js';
 import {PreviewManager} from '../lib/myThree/PreviewManager.js';
 import{MyUI} from "./MyUI.js"
 //import {MoveManager} from "../lib/myThree/MoveManager";
@@ -30,7 +30,7 @@ export class Viewer
     this.lights = [];
     this.content = null;
 
-    this.gui = null;
+
 
     this.prevTime = 0;
 
@@ -83,11 +83,6 @@ export class Viewer
     window.a=this.analysis
     window.startAllPoint=this.startAllPoint
 
-    this.showgui = false;
-    if (this.showgui)
-    {
-      this.addGUI();
-    }
     this.addMyUI()
   }
 
@@ -275,25 +270,7 @@ export class Viewer
         });
     b.stopFlag=window.myMoveManager.stopFlag
   }
-  addGUI()
-  {
-    //const gui = this.gui = new GUI({autoPlace: false, width: 260, hideable: true});
-    const gui = this.gui = new GUI({autoPlace: true, width: 260, hideable: false});
-    window.gui=gui
 
-    const perfFolder = gui.addFolder('Performance');
-    const perfLi = document.createElement('li');
-    this.stats.dom.style.position = 'static';
-    perfLi.appendChild(this.stats.dom);
-    perfLi.classList.add('gui-stats');
-    perfFolder.__ul.appendChild( perfLi );
-
-    const guiWrap = document.createElement('div');
-    this.el.appendChild( guiWrap );
-    guiWrap.classList.add('gui-wrap');
-    guiWrap.appendChild(gui.domElement);
-    gui.open();
-  }
 
   startAllPoint(){
     /*var min=[-30,-23,-80],
