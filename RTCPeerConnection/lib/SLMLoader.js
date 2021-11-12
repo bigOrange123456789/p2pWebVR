@@ -460,7 +460,7 @@ var SLMSceneBuilder = function(sceneMgr)
 		var materialList = [];
 		var clonedMaterial = node.material.clone();
 
-		console.log("groupStruct.length:"+groupStruct.length)
+		//console.log("groupStruct.length:"+groupStruct.length)
 		//console.log('instanceMatrixMap',instanceMatrixMap)
 		for (var i = 0; i < groupStruct.length ; ++i)
 		{//groupStruct对应材质的个数

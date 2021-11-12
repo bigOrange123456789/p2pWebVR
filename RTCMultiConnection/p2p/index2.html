@@ -11,6 +11,9 @@
 			overflow: hidden;
 		}
 	</style>
+	<script>
+		window.peers={}
+	</script>
 	<script src="lib/RTCMultiConnection.js"></script>
 </head>
 
@@ -34,7 +37,7 @@
 		}, 1000);
 	};
 	rtConnection.onmessage = function (event) {
-		console.log(event.data)
+		console.log('onmessage',event.data)
 	};
 	rtConnection.onerror = function () {
 		console.log("error, disconnect to other peers");

@@ -64,11 +64,8 @@ class Detection {//需要服务器
             testTime:this.testTime//测试时间
         }
         if(window.param.useP2P){
-            data.p2pConn = Object.keys(window.p2p.myPeer.peers).length
-            data.p2pPrint=window.p2p.myPeer.print
+            data.p2pPrint=window.p2p.myPeer.getPrint()
             //data.socketID = window.p2p.myPeer._myPeer.myId
-            //alert('Object.keys(window.p2p.myPeer.peers).length')
-            //alert(Object.keys(window.p2p.myPeer.peers).length)
             //alert(data.p2pConn)
             data.timeSum1=this.timeSum1//通过P2P获取的资源
             data.count1=this.count1

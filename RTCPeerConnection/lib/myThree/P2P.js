@@ -21,7 +21,6 @@ class P2P{
         var index=0
         var arr
         setInterval(()=>{
-            //console.log(scope.myPeer.peers)
             for(var ii=0;ii<10;ii++)
             for(var i in scope.myPeer.peers)
                 if(scope.myPeer.peers[i].readyState==='open') {
@@ -93,16 +92,17 @@ class P2P{
 			idData:meshIndex,
 			array:myGLTFLoaderEx.myArray,
 		}*/
-
         this.myPeer.send(JSON.stringify(data))
     }
     receive0(event,sourceId){
+
         var scope=window.p2p//就是this
         var pack=JSON.parse(event.data)
-        console.log('收到：',
-            pack.idData,
-            '加载情况为：',
-            window.loaded[pack.idData])
+        if(pack.type&&pack.type==='text'){
+            pack=JSON.parse(pack.message)
+        }
+        //console.log('收到：', pack)
+        //console.log('收到：', pack,sourceId,scope.warehouse[pack.idData])
         if(scope.accept){
             try{
                 if(pack.type==='data'){
